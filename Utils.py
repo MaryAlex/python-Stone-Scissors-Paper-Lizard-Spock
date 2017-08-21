@@ -1,12 +1,18 @@
 import hashlib
+import hmac
+from binascii import hexlify
+
+import os
 
 from States import STATES_LEN
 
+SHA_LEN = 256
 
-def hash_md5(data):
-    hash_id = hashlib.md5()
-    hash_id.update(repr(data).encode('utf-8'))
-    return hash_id.hexdigest()
+
+def HMAC_SHA(data):
+    key = hexlify(os.urandom(SHA_LEN))
+    hash_obj = hmac.new(key, bytes(data), hashlib.sha256)
+    return hash_obj.hexdigest()
 
 
 # State win half of all states after it
@@ -18,5 +24,5 @@ def is_win(player, computer):
     half_of_states = int((STATES_LEN + 1) / 2)
     for i in range(1, half_of_states):
         if (player + i) % STATES_LEN == computer % STATES_LEN:
-            return "Player wins!"
-    return "Computer wins!"
+            return "Computer wins!"
+    return "Player wins!"
