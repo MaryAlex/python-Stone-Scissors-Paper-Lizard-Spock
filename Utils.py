@@ -20,7 +20,7 @@ def HMAC_SHA(data):
 # Expected that STATES_LEN always odd
 def is_win(player, computer):
     if player % STATES_LEN == computer % STATES_LEN:
-        return "It's tie!"
+        return "It's a tie!"
     half_of_states = int((STATES_LEN + 1) / 2)
     for i in range(1, half_of_states):
         if (player + i) % STATES_LEN == computer % STATES_LEN:
